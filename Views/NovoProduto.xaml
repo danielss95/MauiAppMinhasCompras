@@ -17,5 +17,11 @@
 
         <Label Text="Preço:" />
         <Entry x:Name="txt_preco" Keyboard="Numeric" />
+
+        <Label Text="Categoria:" />
+        <Picker x:Name="pck_categoria" Title="Selecione a categoria" />
+
+        <Label Text="Data da compra:" />
+        <DatePicker x:Name="dtp_data" />
     </VerticalStackLayout>
 </ContentPage>

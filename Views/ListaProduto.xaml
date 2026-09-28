@@ -7,16 +7,23 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Somar" Clicked="ToolbarItem_Clicked_1" />
         <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked" />
+                <ToolbarItem Text="Relatório" Order="Secondary" Clicked="ToolbarItem_Clicked_2" />
     </ContentPage.ToolbarItems>
 
-    <Grid RowDefinitions="Auto,Auto,*">
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
 
         <SearchBar x:Name="txt_search"
                    Grid.Row="0"
                    Placeholder="Busca de Produtos"
                    TextChanged="txt_search_TextChanged" />
 
-        <Grid Grid.Row="1" ColumnDefinitions="*,*,*,*" Padding="10,4">
+        <Picker x:Name="pck_filtro"
+                Grid.Row="1"
+                Title="Filtrar por categoria"
+                Margin="10,0"
+                SelectedIndexChanged="pck_filtro_SelectedIndexChanged" />
+
+        <Grid Grid.Row="2" ColumnDefinitions="*,*,*,*" Padding="10,4">
             <Label Grid.Column="0" Text="Descrição" FontAttributes="Bold" />
             <Label Grid.Column="1" Text="Qtd." FontAttributes="Bold" />
             <Label Grid.Column="2" Text="Preço" FontAttributes="Bold" />
@@ -24,7 +31,8 @@
         </Grid>
 
         <ListView x:Name="lst_produtos"
-                  Grid.Row="2"
+                  Grid.Row="3"
+                  HasUnevenRows="True"
                   IsPullToRefreshEnabled="True"
                   Refreshing="lst_produtos_Refreshing"
                   ItemSelected="lst_produtos_ItemSelected">
@@ -38,7 +46,12 @@
                         </ViewCell.ContextActions>
 
                         <Grid ColumnDefinitions="*,*,*,*" Padding="10">
-                            <Label Grid.Column="0" Text="{Binding Descricao}" />
+                            <VerticalStackLayout Grid.Column="0">
+                                <Label Text="{Binding Descricao}" />
+                                <Label Text="{Binding Categoria}"
+                                       FontSize="11"
+                                       TextColor="Gray" />
+                            </VerticalStackLayout>
                             <Label Grid.Column="1" Text="{Binding Quantidade}" />
                             <Label Grid.Column="2" Text="{Binding Preco, StringFormat='{0:C}'}" />
                             <Label Grid.Column="3" Text="{Binding Total, StringFormat='{0:C}'}" />

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppMinhasCompras.Views.Relatorio"
+             Title="Relatório">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto"
+          Padding="10"
+          RowSpacing="6">
+
+        <Grid Grid.Row="0" ColumnDefinitions="*,*" ColumnSpacing="10">
+            <VerticalStackLayout Grid.Column="0">
+                <Label Text="De:" />
+                <DatePicker x:Name="dtp_inicio" DateSelected="Filtro_DateSelected" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="1">
+                <Label Text="Até:" />
+                <DatePicker x:Name="dtp_fim" DateSelected="Filtro_DateSelected" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <Label Grid.Row="1"
+               Text="Total por categoria"
+               FontAttributes="Bold"
+               FontSize="16"
+               Margin="0,10,0,0" />
+
+        <VerticalStackLayout Grid.Row="2" x:Name="stk_categorias">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*,Auto" Padding="0,2">
+                        <Label Grid.Column="0" Text="{Binding Categoria}" />
+                        <Label Grid.Column="1"
+                               Text="{Binding Total, StringFormat='{0:C}'}"
+                               FontAttributes="Bold" />
+                    </Grid>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
+
+        <Label Grid.Row="3"
+               Text="Produtos do período"
+               FontAttributes="Bold"
+               FontSize="16"
+               Margin="0,10,0,0" />
+
+        <CollectionView x:Name="cv_produtos" Grid.Row="4">
+            <CollectionView.EmptyView>
+                <Label Text="Nenhum produto neste período."
+                       TextColor="Gray"
+                       Margin="0,10" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="*,Auto" Padding="0,6">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="{Binding Descricao}" />
+                            <HorizontalStackLayout Spacing="8">
+                                <Label Text="{Binding DataCadastro, StringFormat='{0:dd/MM/yyyy}'}"
+                                       FontSize="11"
+                                       TextColor="Gray" />
+                                <Label Text="{Binding Categoria}"
+                                       FontSize="11"
+                                       TextColor="Gray" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                        <Label Grid.Column="1"
+                               Text="{Binding Total, StringFormat='{0:C}'}"
+                               VerticalOptions="Center" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label Grid.Row="5"
+               x:Name="lbl_total"
+               FontAttributes="Bold"
+               FontSize="18"
+               HorizontalOptions="End"
+               Margin="0,8,0,0" />
+    </Grid>
+</ContentPage>
